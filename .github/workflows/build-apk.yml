@@ -1,0 +1,39 @@
+# 코드가 올라오면 GitHub가 자동으로 apk를 만들어 "Releases"에 올려 줍니다.
+# 폰에서 https://github.com/<사용자이름>/matchum-bubble/releases/latest 를 열고 apk를 받으면 끝!
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build debug APK
+        run: |
+          chmod +x ./gradlew
+          ./gradlew assembleDebug --stacktrace
+          cp app/build/outputs/apk/debug/app-debug.apk matchum-bubble.apk
+
+      - name: Publish to Releases (latest)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest matchum-bubble.apk \
+            --title "맞춤법 말풍선 (최신)" \
+            --notes "폰에서 matchum-bubble.apk 를 눌러 받은 뒤 설치하세요. 빌드: ${GITHUB_SHA::7}"

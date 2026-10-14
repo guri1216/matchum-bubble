@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="맞춤법 말풍선"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="카톡·문자 등에서 글을 쓰면 입력창 위에 고칠 말이 떠요. 말풍선을 누르면 바로 고쳐집니다."
+            android:textSize="15sp" />
+
+        <!-- 1. 켜기 -->
+        <TextView
+            style="@style/Section"
+            android:text="1. 접근성 권한 켜기" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnAccessibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="접근성 설정 열기" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="설정 &gt; 접근성 &gt; 설치된 앱(설치된 서비스) &gt; 맞춤법 말풍선 을 켜 주세요.\n\'제한된 설정\'이라고 나오면: 설정 &gt; 애플리케이션 &gt; 맞춤법 말풍선 &gt; 오른쪽 위 ⋮ &gt; \'제한된 설정 허용\' 후 다시 시도하세요."
+            android:textSize="13sp" />
+
+        <Switch
+            android:id="@+id/swEnabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="말풍선 띄우기"
+            android:textSize="16sp" />
+
+        <!-- 2. 테스트 -->
+        <TextView
+            style="@style/Section"
+            android:text="2. 검사 규칙 테스트" />
+
+        <EditText
+            android:id="@+id/etTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="예: 몇일 뒤에 만나면 되요. 내가 할께!"
+            android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/tvTestResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textSize="14sp" />
+
+        <!-- 3. AI -->
+        <TextView
+            style="@style/Section"
+            android:text="3. AI 검사 (선택)" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="켜면 말풍선에 ✨AI 버튼이 생겨요. 누를 때만 그 문장이 Claude AI로 보내져 띄어쓰기·문맥까지 고쳐 줍니다. Anthropic API 키가 필요하고 사용량만큼 요금이 나가요(문장 하나에 아주 적은 금액)."
+            android:textSize="13sp" />
+
+        <Switch
+            android:id="@+id/swAi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="AI 검사 버튼 사용"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/aiPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etApiKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="API 키 (sk-ant-…)"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/etModel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="모델 (비워 두면 기본값)"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="저장" />
+
+                <Button
+                    android:id="@+id/btnTestAi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="AI로 위 문장 검사" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvAiResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="개인정보: 입력한 글은 휴대폰 안에서만 검사하고 어디에도 저장하지 않아요. 비밀번호 입력란은 읽지 않습니다. AI 버튼을 직접 누른 문장만 Anthropic으로 전송됩니다."
+            android:textColor="#777777"
+            android:textSize="12sp" />
+    </LinearLayout>
+</ScrollView>
